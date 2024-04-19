@@ -42,6 +42,10 @@
 #define SC_Seek        19
 #define SC_FloatToString 20
 
+#define SC_CreateSemaphore 21
+#define SC_Down 22
+#define SC_Up 23
+
 #ifndef IN_ASM
 
 /* The system call interface.  These are the operations the Nachos
@@ -72,11 +76,15 @@ void PrintString (char buffer[]);
 
 int FloatToString(char* buffer, float* number);
 
+int CreateSemaphore(char* name, int semval);
+int Down(char* name); 
+int Up(char* name); 
+
 
 /* Address space control operations: Exit, Exec, and Join */
 
 /* This user program is done (status = 0 means exited normally). */
-void Exit(int status);	
+void Exit(int exitCode);	
 
 /* A unique identifier for an executing user program (address space) */
 typedef int SpaceId;	

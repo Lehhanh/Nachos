@@ -38,6 +38,10 @@ Thread::Thread(char* threadName)
     stackTop = NULL;
     stack = NULL;
     status = JUST_CREATED;
+
+    // Khoi tao 2 thuoc tinh vua them vao o ben thread.h
+    processID = 0;
+    exitStatus = 0;
 #ifdef USER_PROGRAM
     space = NULL;
 #endif

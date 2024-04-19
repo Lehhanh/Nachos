@@ -87,6 +87,15 @@ class Thread {
 					// must not be running when delete 
 					// is called
 
+    
+    int processID; // De nhan bien 1 tien trinh
+    int exitStatus; // Kiem tra: 1 tien trinh co dang o trang thai nghi
+    void FreeSpace(){ // Giai phong vung nho cho tien trinh
+        if (space != 0)
+            delete space;
+    }
+
+
     // basic thread operations
 
     void Fork(VoidFunctionPtr func, int arg); 	// Make thread run (*func)(arg)

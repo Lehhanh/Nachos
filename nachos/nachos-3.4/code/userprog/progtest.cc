@@ -23,25 +23,58 @@
 void
 StartProcess(char *filename)
 {
+    /*
+    // Kiểm tra sự tồn tại của chương trình “filename” bằng cách gọi phương thức Open của lớp fileSystem.
     OpenFile *executable = fileSystem->Open(filename);
-    AddrSpace *space;
-
+    */
+    
+    AddrSpace *space; // Virtual memory
+    
+    /*
     if (executable == NULL) {
-	printf("Unable to open file %s\n", filename);
-	return;
+        printf("Unable to open file %s\n", filename);
+        return;
     }
-    space = new AddrSpace(executable);    
+    */
+
+    space = new AddrSpace(filename);    
     currentThread->space = space;
 
-    delete executable;			// close file
+    //delete executable;            // close file
 
-    space->InitRegisters();		// set the initial register values
-    space->RestoreState();		// load page table register
+    space->InitRegisters();     // set the initial register values
+    space->RestoreState();      // load page table register
 
-    machine->Run();			// jump to the user progam
-    ASSERT(FALSE);			// machine->Run never returns;
-					// the address space exits
-					// by doing the syscall "exit"
+    machine->Run();         // jump to the user progam
+    ASSERT(FALSE);          // machine->Run never returns;
+                    // the address space exits
+                    // by doing the syscall "exit"
+}
+
+// Bo sung phuong thuc StartProcess_2
+void StartProcess_2(int id)
+{
+    // Lay fileName cua process id nay
+    char* fileName = pTab->GetFileName(id);
+
+    AddrSpace *space;
+    space = new AddrSpace(fileName);
+
+    if(space == NULL)
+    {
+        printf("\nPCB::Exec: Can't create AddSpace.");
+        return;
+    }
+
+    currentThread->space = space;
+
+    space->InitRegisters(); // set the initial register values  
+    space->RestoreState();  // load page table register 
+
+    machine->Run(); // jump to the user progam  
+    ASSERT(FALSE);  // machine->Run never returns;
+                    // the address space exits
+                    // by doing the syscall "exit"  
 }
 
 // Data structures needed for the console test.  Threads making
